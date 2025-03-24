@@ -1,8 +1,23 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import AnimeCard from './AnimeCard'
+import Genres from './Genres'
+import { useNavigate} from 'react-router-dom'
+
+
+
+
+
 
 const HomePage = () => {
+  const navigate = useNavigate()
+  const handleClick = (genre) => {
+    navigate(`/genre/${genre}?page=1`)
+   
+  }
+
+  
+  
   const [data, setData] = useState({
     genres: [],
     latestEpisodeAnimes: [],
@@ -44,9 +59,9 @@ const HomePage = () => {
         <h2 className="text-xl font-semibold mb-3">Genres</h2>
         <div className="flex flex-wrap gap-2">
           {data?.genres?.map((genre, index) => (
-            <span key={index} className="px-3 py-1 bg-gray-100 rounded-full text-sm">
-              {genre}
-            </span>
+            <button onClick={()=>handleClick(genre)} key={index} className="px-3 py-1 bg-gray-100 rounded-full text-sm" >
+              {genre} 
+            </button>
           ))}
         </div>
       </div>
