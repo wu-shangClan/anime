@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import AnimeCard from './AnimeCard'
+import animePage from './animePage'
 
 const HomePage = () => {
   const [data, setData] = useState({
@@ -8,7 +9,8 @@ const HomePage = () => {
     latestEpisodeAnimes: [],
     mostPopularAnimes: [],
     trendingAnimes: [],
-    latestCompletedAnimes: []
+    latestCompletedAnimes : [],
+    azList: []
   })
   const [loading, setLoading] = useState(true)
   const url = 'http://localhost:4000/api/v2/hianime/home'
@@ -26,17 +28,16 @@ const HomePage = () => {
     }
   }
 
-  // Use useEffect for data fetching
   useEffect(() => {
     fetchData()
-  }, []) 
+  }, [])
 
   if (loading) {
     return <div className="p-4">Loading...</div>
   }
 
   return (
-    <div className="p-4">
+    <div className="container mx-auto px-4 py-8">
       <h1 className="text-2xl font-bold mb-6">Home Page</h1>
       
       {/* Genres Section */}
@@ -50,6 +51,8 @@ const HomePage = () => {
           ))}
         </div>
       </div>
+
+      <a href="/anime">Anime Page</a>
 
       {/* Latest Completed Animes Section */}
       {data?.latestCompletedAnimes && (
