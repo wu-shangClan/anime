@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
-import AnimeCard from './AnimeCard'
+
 
 
 const AnimeDetails = () => {
@@ -15,8 +15,6 @@ const AnimeDetails = () => {
         setLoading(true)
         const response = await axios.get(`http://localhost:4000/api/v2/hianime/anime/${id}`)
         console.log('Full response data:', response.data.data)
-        console.log('Character Voice Actors:', response.data.data.anime.info.characterVoiceActor)
-        console.log('Seasons:', response.data.data.seasons)
         setData(response.data.data)
       } catch (error) {
         console.error('Error fetching anime details:', error)
@@ -28,14 +26,38 @@ const AnimeDetails = () => {
     fetchAnimeDetails()
   }, [id])
 
-  if (loading || !data) {
-    return <div className="p-4">Loading...</div>
+  if (loading) {
+    return (
+      <div className="p-4 flex justify-center items-center h-screen">
+        <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full text-gray-500" role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
+      </div>
+    )
   }
 
-  const { anime, mostPopularAnimes, recommendedAnimes, relatedAnimes } = data
+  if (!data) {
+    return (
+      <div className="p-4 flex justify-center items-center h-screen">
+        <div className="text-gray-500 text-center">
+          <h2 className="text-2xl font-bold mb-4">Error: Anime data not found</h2>
+          <p>Please try again later.</p>
+        </div>
+      </div>
+    )
+  }
+
+  const { anime, recommendedAnimes, relatedAnimes } = data
 
   if (!anime || !anime.info) {
-    return <div className="p-4">Error: Anime data not found</div>
+    return (
+      <div className="p-4 flex justify-center items-center h-screen">
+        <div className="text-gray-500 text-center">
+          <h2 className="text-2xl font-bold mb-4">Error: Anime data not found</h2>
+          <p>Please try again later.</p>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -207,8 +229,40 @@ const AnimeDetails = () => {
           <p className="text-gray-500">No other seasons available.</p>
         )}
       </div>
+
+      {/* Recommended Animes */}
+      {recommendedAnimes?.length > 0 && (
+        <div className="mb-8">
+          <h2 className="text-2xl font-bold mb-4">Recommended</h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
+            {recommendedAnimes.map((anime, index) => (
+              <div key={index} className="bg-gray-50 rounded-lg p-2">
+                <img src={anime.poster} alt={anime.name} className="w-full rounded-lg" />
+                <p className="font-medium mt-2 text-sm">{anime.name}</p>
+                <p className="text-xs text-gray-500">{anime.rating}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Related Animes */}
+      {relatedAnimes?.length > 0 && (
+        <div className="mb-8">
+          <h2 className="text-2xl font-bold mb-4">Related</h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
+            {relatedAnimes.map((anime, index) => (
+              <div key={index} className="bg-gray-50 rounded-lg p-2">
+                <img src={anime.poster} alt={anime.name} className="w-full rounded-lg" />
+                <p className="font-medium mt-2 text-sm">{anime.name}</p>
+                <p className="text-xs text-gray-500">{anime.rating}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   )
 }
 
-export default AnimeDetails 
+export default AnimeDetails
