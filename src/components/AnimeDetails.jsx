@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios'
 
 
+
 const AnimeDetails = () => {
   const { id } = useParams()
   const [data, setData] = useState(null)
