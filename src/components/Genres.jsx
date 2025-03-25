@@ -8,17 +8,20 @@ const Genres = () => {
   const [data, setData] = useState({
   animes:[]
   })
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+  const [totalPages, setTotalPages] = useState(1);
   
   const location = useLocation()
-  const url = `http://localhost:4000/api/v2/hianime${location.pathname}?page=1`
+  const url = `http://localhost:4000/api/v2/hianime${location.pathname}?page=${currentPage}`
 
   const fetchData = async () => {
     try {
 
       const response = await axios.get(url)
       setData(response.data.data)
-    
-
+      setTotalPages(response.data.data.totalPages)
+      setIsLoading(false)
     } catch (error) {
       console.error('Error fetching data:', error)
     }
@@ -27,7 +30,7 @@ const Genres = () => {
   // Use useEffect for data fetching
   useEffect(() => {
     fetchData()
-  }, [])
+  }, [currentPage])
 
 
 
@@ -46,6 +49,26 @@ const Genres = () => {
           </div>
         </div>
       )}
+      {/* Pagination */}
+      <div className="flex justify-center mt-8 space-x-2">
+        <button
+          onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
+          disabled={currentPage === 1 || isLoading}
+          className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
+        >
+          Previous
+        </button>
+        <span className="px-4 py-2">
+          Page {currentPage} of {totalPages}
+        </span>
+        <button
+          onClick={() => setCurrentPage((prev) => prev + 1)}
+          disabled={currentPage === totalPages || isLoading }
+          className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
+        >
+          Next
+        </button>
+      </div>
     </div>     
   
   )

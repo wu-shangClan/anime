@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import AnimeCard from './AnimeCard'
-import Genres from './Genres'
 import { useNavigate} from 'react-router-dom'
-import animePage from './animePage'
+import Navbar from './Navbar'
 
 const HomePage = () => {
   const navigate = useNavigate()
@@ -48,7 +47,7 @@ const HomePage = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold mb-6">Home Page</h1>
+      <Navbar />
       
       {/* Genres Section */}
       <div className="mb-8">
