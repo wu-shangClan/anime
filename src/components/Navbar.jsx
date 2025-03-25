@@ -6,8 +6,10 @@ import axios from 'axios'
 
 const Navbar = () => {
   const [suggestions, setSuggestions] = useState([])
+  const [isHidden, setIsHidden] = useState(false)
 
   const navigate = useNavigate()
+
   const handleSearch = (e) => {
     e.preventDefault()
     const search = e.target.search.value
@@ -17,37 +19,32 @@ const Navbar = () => {
     navigate('/search?q=' + search)
   }
 
-  useEffect(()=>{},[suggestions])
-
   const  handlechange = async (e) => {
+    
     const key = e.target.value;
     
       try {
       const response = await axios.get(`http://localhost:4000/api/v2/hianime/search/suggestion?q=${key}`)
         setSuggestions(response.data.data)
-        console.log(response.data.data);
         
       } catch (error) {
         console.error('Error fetching suggestions:', error)
       }
-  }
-
+    }
 
   return (
     <nav>
       <form onSubmit={handleSearch}>
-        <input type="text" name="search" placeholder="Search" autoComplete="off" onChange={handlechange} />
+        <input type="text" name="search" placeholder="Search" autoComplete="off" onChange={handlechange} onFocus={() => setIsHidden(true)} onBlur={() => setIsHidden(false)}/>
         <button type="submit" >Search</button>
       </form>
       {
-        suggestions.length > 0 &&
-        suggestions.map((anime)=>
-        {
-          <div>
-            <p>{anime.name}</p>
-          </div>
-        }
-        )
+        suggestions.suggestions?.length > 0 &&
+          suggestions.suggestions.map((anime)=>(
+            <div key={anime.id} className={`${isHidden ? '' : 'hidden'} bg-red-700 `} >
+              <p>{anime.name}</p>
+            </div>
+        ))
       }
 
     </nav>
