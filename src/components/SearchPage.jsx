@@ -5,7 +5,7 @@ import axios from 'axios'
 
 const SearchPage = () => {
 
-    const { search } = useLocation().search
+    const search = useLocation().search
     const [page , setpage ] = useState(1)
 
     const [data, setData] = useState({
@@ -15,7 +15,9 @@ const SearchPage = () => {
 
     const [loading, setLoading] = useState(false)
 
-    const url = `http://localhost:4000/api/v2/hianime/search?q=${search}&page=${page}`  
+    const url = `http://localhost:4000/api/v2/hianime/search${search}&page=${page}`  
+
+    console.log(url)
 
     const fetchData = async () => {
         try {
@@ -45,6 +47,24 @@ const SearchPage = () => {
               <AnimeCard key={index} anime={anime} showEpisodes={true} />
             ))}
           </div>
+        </div>
+        {/* Pagination */}
+        <div className="flex justify-center mt-4">
+          <button
+            onClick={() => setpage(prev => Math.max(1, prev - 1))}
+            disabled={page === 1}
+            className="px-4 py-2 bg-gray-100 rounded-md text-sm"
+          >
+            Previous
+          </button>
+          <span className="mx-2 text-gray-600">Page {page}</span>
+          <button
+            onClick={() => setpage(prev => prev + 1)}
+            disabled={page === data.totalPages}
+            className="px-4 py-2 bg-gray-100 rounded-md text-sm"
+          >
+            Next
+          </button>
         </div>
     </div>
   )
