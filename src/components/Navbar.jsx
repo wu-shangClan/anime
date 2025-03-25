@@ -1,4 +1,4 @@
-import { useState , useEffect} from 'react'
+import { useState, useEffect } from 'react'
 import React from 'react'
 import { useNavigate, createSearchParams } from 'react-router-dom'
 import axios from 'axios'
@@ -6,7 +6,7 @@ import axios from 'axios'
 
 const Navbar = () => {
   const [suggestions, setSuggestions] = useState([])
-  const [isHidden, setIsHidden] = useState(false)
+  // const [isHidden, setIsHidden] = useState(false)
 
   const navigate = useNavigate()
 
@@ -19,31 +19,41 @@ const Navbar = () => {
     navigate('/search?q=' + search)
   }
 
-  const  handlechange = async (e) => {
-    
+  const handlecl = (index) => {
+    const search = index
+    createSearchParams({ search })
+    navigate('/search?q=' + search)
+
+  }
+  const handlechange = async (e) => {
+
     const key = e.target.value;
-    
-      try {
+
+    try {
       const response = await axios.get(`http://localhost:4000/api/v2/hianime/search/suggestion?q=${key}`)
-        setSuggestions(response.data.data)
-        
-      } catch (error) {
-        console.error('Error fetching suggestions:', error)
-      }
+      setSuggestions(response.data.data)
+
+    } catch (error) {
+      console.error('Error fetching suggestions:', error)
     }
+  }
 
   return (
     <nav>
       <form onSubmit={handleSearch}>
-        <input type="text" name="search" placeholder="Search" autoComplete="off" onChange={handlechange} onFocus={() => setIsHidden(true)} onBlur={() => setIsHidden(false)}/>
+        <input type="text" name="search" placeholder="Search" autoComplete="off" onChange={handlechange} onFocus={() => setIsHidden(true)} onBlur={() => setIsHidden(false)} />
         <button type="submit" >Search</button>
       </form>
       {
         suggestions.suggestions?.length > 0 &&
-          suggestions.suggestions.map((anime)=>(
-            <div key={anime.id} className={`${isHidden ? '' : 'hidden'} bg-red-700 `} >
-              <p>{anime.name}</p>
-            </div>
+        suggestions.suggestions.map((anime) => (
+          <div key={anime.id}  >
+            <ul>
+              <button onClick={() => handlecl(anime.name)}>
+                <li>{anime.name}</li>
+              </button>
+            </ul>
+          </div>
         ))
       }
 
