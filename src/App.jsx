@@ -5,7 +5,7 @@ import HomePage from './components/homepage/homePage'
 import AnimeDetails from './components/Anime/AnimeDetails'
 import Genres from './components/pages/Genres'
 import AnimePage from './components/pages/animePage'
-import SearchPage from './components/SearchPage'
+import SearchPage from './components/pages/SearchPage'
 import AnimeEpisode from './components/Anime/AnimeEpisode'
 
 const router = createBrowserRouter([
