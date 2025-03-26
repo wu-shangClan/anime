@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import AnimeAZList from '../Anime/AnimeAZList'
+import Search from '../utilis/search';
 
 const AnimePage = () => {
   const [sortOption, setSortOption] = useState('A')
@@ -28,8 +29,10 @@ const AnimePage = () => {
               {letter}
             </button>
           ))}
+          <div className="m-4">
+            <Search />
+          </div>
         </div>
-        
         <div className="border-t border-gray-200 pt-6">
           <AnimeAZList sortOption={sortOption} />
         </div>
