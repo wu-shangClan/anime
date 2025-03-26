@@ -2,7 +2,8 @@ import React from 'react'
 import { useLocation } from 'react-router-dom'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
-import AnimeCard from './AnimeCard'
+import AnimeCard from '../Anime/AnimeCard'
+import Loader from '../utilis/Loader'
 
 const Genres = () => {
   const [data, setData] = useState({
@@ -33,12 +34,13 @@ const Genres = () => {
   }, [currentPage])
 
 
-
-  
+  if (isLoading) {
+    return <Loader />;
+  }
   
   return (
     
-    <div>
+  <div>
    {data?.animes && (
         <div className="mb-8">
           <h2 className="text-xl font-semibold mb-3"></h2>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import AnimeCard from './AnimeCard'
+import AnimeCard from './Anime/AnimeCard'
 import axios from 'axios'
 
 const SearchPage = () => {

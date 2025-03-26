@@ -1,11 +1,12 @@
 import React from 'react'
 import './app.css'
 import { createBrowserRouter, RouterProvider} from 'react-router-dom'
-import HomePage from './components/homePage'
-import AnimeDetails from './components/AnimeDetails'
-import Genres from './components/Genres'
-import AnimePage from './components/animePage'
+import HomePage from './components/homepage/homePage'
+import AnimeDetails from './components/Anime/AnimeDetails'
+import Genres from './components/pages/Genres'
+import AnimePage from './components/pages/animePage'
 import SearchPage from './components/SearchPage'
+import AnimeEpisode from './components/Anime/AnimeEpisode'
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
   {
     path: '/anime/:id',
     element: <AnimeDetails />
+  },
+  {
+    path: '/anime/:id/episode',
+    element: <AnimeEpisode />
   },
   {
     path: '/genre/:genre',
