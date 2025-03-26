@@ -2,6 +2,9 @@ import React from 'react'
 import AnimeCard from '../Anime/AnimeCard'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/autoplay';
 
 const MostPopular = ({data}) => {
   return (
