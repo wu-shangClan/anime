@@ -10,7 +10,7 @@ import AnimeEpisode from './components/Anime/AnimeEpisode'
 
 const router = createBrowserRouter([
   {
-    path: '/home',
+    path: '/',
     element: <HomePage />
   },
   {
