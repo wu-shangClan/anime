@@ -1,7 +1,7 @@
 import React from 'react'
 import './app.css'
 import { createBrowserRouter, RouterProvider} from 'react-router-dom'
-import HomePage from './components/homepage/homePage'
+import HomePage from './components/pages/homePage'
 import AnimeDetails from './components/Anime/AnimeDetails'
 import Genres from './components/pages/Genres'
 import AnimePage from './components/pages/animePage'

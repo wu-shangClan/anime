@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate, createSearchParams } from 'react-router-dom';
+import { CiSearch } from 'react-icons/ci';
 import axios from 'axios';
 
 const search = () => {
@@ -44,28 +45,28 @@ const search = () => {
               onChange={handlechange} 
               onFocus={() => setIsHidden(true)} 
               onBlur={() => setTimeout(() => setIsHidden(false), 1000)}
-              className="bg-gray-800 text-white px-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 w-64"
+              className="bg-white text-black px-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 w-64"
             />
             {suggestions.suggestions?.length > 0 && (
-              <div className={`${isHidden ? '' : 'hidden'} absolute top-full mt-2 w-full bg-gray-800 rounded-lg shadow-lg z-50`}>
+              <div className={`${isHidden ? '' : 'hidden'} absolute top-full mt-2 w-full bg-white rounded-lg shadow-lg z-50`}>
                 {suggestions.suggestions.map((anime) => (
                   <div 
                     key={anime.id} 
-                    className="p-3 hover:bg-gray-700 cursor-pointer transition-colors"
+                    className="p-3 cursor-pointer transition-colors"
                     onClick={() => handleSuggestionClick(anime)}
                   >
-                    <p className="text-white">{anime.name}</p>
+                    <p className="text-black">{anime.name}</p>
                   </div>
                 ))}
               </div>
             )}
-          </div>
           <button 
             type="submit" 
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full transition-colors"
+            className="text-black px-6 py-2 rounded-full absolute top-1/2 -translate-y-1/2 right-0"
           >
-            Search
+            <CiSearch className='text-2xl font-bold'/>
           </button>
+          </div>
         </form>
     </>
   )
